@@ -8,8 +8,3 @@ The QuickPay API gives QuickPay customers access to
 To use this API you need a user account at http://QuickPay.net
 
 Currently only available for PHP 5.3
-
-Changelog:
-
-version 0.1:
-  * Basic client for API version 0.1
