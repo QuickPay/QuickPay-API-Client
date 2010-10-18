@@ -1,4 +1,8 @@
 QuickPay API Client PHP 5.3 Changelog
 
+version 0.2:
+  * Added method to check if card is subject to Nets fees.
+
 version 0.1:
   * Basic client for API version 0.1
+  

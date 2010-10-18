@@ -9,13 +9,31 @@ require_once('Exception.php');
  * Quickpay API Client
  *
  * @author Tim Warberg, QuickPay
- * @version 0.1
+ * @version 0.2
  */
 class Client
 {
     public static $baseUri = 'https://api.quickpay.net';
     public static $baseHeaders = array(
         'X-QuickPay-Client-API-Version: 0.1'
+    );
+    
+    public static $netsFeeCardLocknames = array(
+        "american-express",
+        "american-express-dk",
+        "dankort",
+        "diners",
+        "diners-dk",
+        "edankort",
+        "fbg1886",
+        "jcb",
+        "maestro",
+        "maestro-dk",
+        "mastercard",
+        "mastercard-dk",
+        "visa","visa-dk",
+        "visa-electron",
+        "visa-electron-dk"
     );
     
     /**
@@ -43,7 +61,7 @@ class Client
      * fee for all available creditcard types is returned.
      * @param integer $amount
      * @param string $lockname
-     * @return array Without lockname: Array[ Array['lockname','amount','fee','total'], ...], with lockname: Array['lockname','amount','fee','total']
+     * @return array Without lockname: Array[ StdObj{lockname,amount,fee,total}, ...], with lockname: StdObj{lockname,amount,fee,total}
      */
     public function getNetsFee($amount, $lockname = null)
     {
@@ -52,6 +70,9 @@ class Client
         }
         $path = "/acquirers/nets/fees/$amount";
         if(is_string($lockname)) {
+            if(!$this->isNetsCardWithFee($lockname)) {
+                throw new Exception("Fees not available for Card '$lockname'");
+            }
             $path .= "/$lockname";
         }
         return $this->_get($path);
@@ -65,6 +86,11 @@ class Client
     {
         $path = "/acquirers/nets/status";
         return $this->_get($path);
+    }
+    
+    public static function isNetsCardWithFee($lockname)
+    {
+        return in_array($lockname, self::$netsFeeCardLocknames);
     }
     
     /**
