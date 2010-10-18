@@ -35,6 +35,7 @@ class RestClient {
          curl_setopt($this->curl,CURLOPT_AUTOREFERER,true); // This make sure will follow redirects
          curl_setopt($this->curl,CURLOPT_FOLLOWLOCATION,true); // This too
          curl_setopt($this->curl,CURLOPT_HEADER,true); // THis verbose option for extracting the headers
+         curl_setopt($this->curl,CURLOPT_FRESH_CONNECT, true);
      }
 
      /**
