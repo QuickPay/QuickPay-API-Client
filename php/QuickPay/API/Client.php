@@ -31,7 +31,9 @@ class Client
         "maestro-dk",
         "mastercard",
         "mastercard-dk",
-        "visa","visa-dk",
+        "mastercard-debet-dk",
+        "visa",
+        "visa-dk",
         "visa-electron",
         "visa-electron-dk"
     );
