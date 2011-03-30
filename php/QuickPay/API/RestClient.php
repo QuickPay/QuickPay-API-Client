@@ -69,7 +69,7 @@ class RestClient {
          curl_setopt($this->curl, CURLINFO_HEADER_OUT, TRUE);
          curl_setopt($this->curl,CURLOPT_URL,$this->url);
          $r = curl_exec($this->curl);
-         if (($errno = curl_errno($ch))) {
+         if (($errno = curl_errno($this->curl))) {
              throw new Exception(curl_error($this->curl), $errno);
          }
          $this->treatResponse($r); // Extract the headers and response
