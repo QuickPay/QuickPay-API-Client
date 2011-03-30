@@ -36,6 +36,7 @@ class RestClient {
          curl_setopt($this->curl,CURLOPT_FOLLOWLOCATION,true); // This too
          curl_setopt($this->curl,CURLOPT_HEADER,true); // THis verbose option for extracting the headers
          curl_setopt($this->curl,CURLOPT_FRESH_CONNECT, true);
+         curl_setopt($this->curl,CURLOPT_SSL_VERIFYPEER, false); // Don't verify ssl certificate
      }
 
      /**
@@ -68,6 +69,9 @@ class RestClient {
          curl_setopt($this->curl, CURLINFO_HEADER_OUT, TRUE);
          curl_setopt($this->curl,CURLOPT_URL,$this->url);
          $r = curl_exec($this->curl);
+         if (($errno = curl_errno($ch))) {
+             throw new Exception(curl_error($this->curl), $errno);
+         }
          $this->treatResponse($r); // Extract the headers and response
          return $this ;
      }
@@ -94,7 +98,7 @@ class RestClient {
             return;
         }
         $parts  = explode("\n\r",$r); // HTTP packets define that Headers end in a blank line (\n\r) where starts the body
-        while(preg_match('@HTTP/1.[0-1] 100 Continue@',$parts[0]) or preg_match("@Moved@",$parts[0])) {
+        while(preg_match('@HTTP/1.[0-1] 100 Continue@',$parts[0]) or preg_match("@Moved@",$parts[0]) or preg_match("@HTTP/1.1 303 See Other@",$parts[0])) {
             // Continue header must be bypass
             for($i=1;$i<count($parts);$i++) {
                 $parts[$i - 1] = trim($parts[$i]);

@@ -1,5 +1,10 @@
 QuickPay API Client PHP 5.3 Changelog
 
+version 0.3:
+  * Improved error handling.
+  * RestClient now handles 303 redirects correctly.
+  * Don't verify SSL certificate.
+
 version 0.2:
   * Added method to check if card is subject to Nets fees.
 
