@@ -1,0 +1,5 @@
+<phpunit bootstrap="./bootstrap.php">
+    <testsuite name="QuickPay API Client Test Suite">
+        <directory>./QuickPay/API</directory>
+    </testsuite>
+</phpunit>
