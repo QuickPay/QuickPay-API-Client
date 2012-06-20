@@ -1,5 +1,9 @@
 QuickPay API Client PHP 5.3 Changelog
 
+version 0.4:
+  * Updated to API version 1.0b
+  * Added initial unit tests
+
 version 0.3:
   * Improved error handling.
   * RestClient now handles 303 redirects correctly.
@@ -10,4 +14,3 @@ version 0.2:
 
 version 0.1:
   * Basic client for API version 0.1
-  

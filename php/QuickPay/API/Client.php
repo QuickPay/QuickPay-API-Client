@@ -9,7 +9,7 @@ require_once('Exception.php');
  * Quickpay API Client
  *
  * @author Tim Warberg, QuickPay
- * @version 0.3
+ * @version 0.4
  */
 class Client
 {
